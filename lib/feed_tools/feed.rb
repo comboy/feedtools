@@ -674,6 +674,7 @@ module FeedTools
           begin
             @feed_data_utf_8 =
               Iconv.new('utf-8', use_encoding).iconv(raw_data)
+            @feed_data_utf_8.gsub! /^<\?xml ([^>]*)encoding="([^\"]*)"([^>]*)\?>/, "<?xml \\1encoding=\"UTF-8\"\\3\?>"
           rescue Exception => error
             return raw_data
           end
